@@ -57,7 +57,7 @@ Game.prototype.create_data = function(size) {
 }
 
 Game.prototype.view_refresh = function() {
-
+	
 	for (var row = 0; row < this.size; row++) {
 
 		for (var column = 0; column < this.size; column++) {		
@@ -130,14 +130,21 @@ Game.prototype.new_puzzle = function() {
 			self.start('black');
 			self.random_move(48);
 			
+			if (self.nth_move < 48)
+				continue;
+		
 			win_result = self.force_win_moves(self.turn);
 			
 			if (win_result.length === 1) {	// only choose a puzzle that has only one win solution
 			
 				modal_window_close();
 				break;
-			}	
+			}
 		}	
+
+		if (win_result.length !== 1)
+			modal_window_show(`<center style='padding: 30px;'><b>Unable to find a puzzle within the expected time.</b><br><br><button onclick='game.new_puzzle();'>Retry</button></center>`, {close_button: false, must_respond: true});
+
 	}, 100);
 }
 
