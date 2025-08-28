@@ -31,8 +31,8 @@
 
 
 <body>
-
 <center>
+<div id='master_view' class='center'>
 
 <button style='margin-right:18px;' onclick='game.new_puzzle();'>New</button>
 <div id='disk_info1' style='display:inline-block;'>
@@ -51,8 +51,8 @@
 <button style='margin-right:20px;' onclick='game.undo()'>< Undo</button>
 <button onclick='game.redo()'>Redo ></button>
 
+</div>
 </center>
-
 </body>
 
 
@@ -68,6 +68,7 @@
 var board = new Board(8, 'board_view');
 var game = new Game(8, board);
 
+game.board.adjust_view();
 game.start('black');
 
 modal_window_show(`
@@ -93,14 +94,40 @@ modal_window_show(`
 	</center>
 	
 	<center>
-	<div style='font-size: 15px; background-color: #cccccc; padding: 8px;'>
-	<a href='https://savvyopen.com/soOthello' target='_blank' style='color: #555555'>© 2025 Savvy Open</a>
+	<div style='font-size: 15px; background-color: #cccccc; color: #555555; padding: 8px; cursor: pointer;' onclick='external_link_confirmation("https://github.com/ChungLimLee/soOthello")'>
+	© 2025 Savvy Open
 	</div>
 	</center>
 `,{	
 	close_button: false,
 	must_respond: true
 });
+
+
+
+
+
+// EXTERNAL LINK CONFIRMATION
+
+var external_link_confirmation_modal = new modal_box$({z_index: 1});
+
+function external_link_confirmation(link) {
+
+	external_link_confirmation_modal.show(`
+	
+		<center style='padding: 0px 15px 15px 15px;'>
+			<b>This is an online activity:</b>
+			<br><br>
+			Open this link?
+			<br>
+			<div style='overflow-x: scroll; margin-top: 15px;'>${link}</div>
+			<br>
+			<a href='${link}' target='_blank'><button class='button' onclick='external_link_confirmation_modal.close();'>Yes</button></a>
+			<button class='button' onclick='external_link_confirmation_modal.close();'>No</button>
+		</center>
+		
+	`, {background_color: '#f0f0f0', width: '250px'});
+}
 
 
 
