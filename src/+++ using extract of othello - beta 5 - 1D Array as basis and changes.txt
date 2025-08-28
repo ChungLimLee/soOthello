@@ -1,0 +1,25 @@
+/*
+	Copyright (c) 2025 Chung Lim Lee and Savvy Open
+	All rights reserved.
+*/
+
+
+
+New
+
+- game.solve() that include draw lines
+- game.new_puzzle()
+
+
+
+Changes
+
+- rewrite highlight last move
+- remake disk info display
+- board and button re-styled
+
+
+
+Fixes
+
+- adjust game.change path after force win is called (else redo will show the explored game path)

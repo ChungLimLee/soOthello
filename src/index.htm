@@ -1,1 +1,109 @@
+﻿<!--
+	Copyright (c) 2025 Chung Lim Lee and Savvy Open
+	All rights reserved.
+-->
 
+
+
+
+
+<html>
+
+<link rel="stylesheet" href="view.css">
+
+<script src='setup.js'></script>
+<script src='view.js'></script>
+
+<script src='move.js'></script>
+<script src='ai.js'></script>
+
+
+
+
+
+<head>
+	<title>SO Othello - ending puzzles</title>
+	<meta name="viewport" content="width=device-width">
+</head>
+
+
+
+
+
+<body>
+
+<center>
+
+<button style='margin-right:18px;' onclick='game.new_puzzle();'>New</button>
+<div id='disk_info1' style='display:inline-block;'>
+	Move(s) Made: 0
+</div>
+<button style='margin-left:18px;' onclick='game.highlight_good_moves();'>Hint</button>
+<br>
+
+<div id='disk_info2' style='margin-bottom: 8px;'>
+	Black: 2, White: 2
+</div>
+
+
+<div id='board_view' style='margin-bottom:12px;'></div>
+
+<button style='margin-right:20px;' onclick='game.undo()'>< Undo</button>
+<button onclick='game.redo()'>Redo ></button>
+
+</center>
+
+</body>
+
+
+
+
+
+<script src='modal box.js'></script>
+
+<script>
+
+// ********** MAIN **********
+
+var board = new Board(8, 'board_view');
+var game = new Game(8, board);
+
+game.start('black');
+
+modal_window_show(`
+
+	<center style='padding: 30px;'>
+
+	<b>SO Othello - ending puzzles</b>
+	<br>
+	v1.0.0
+	<br><br>
+
+	<button class='highlight_go_play' onclick='game.new_puzzle();'>Go Play</button>
+	<br><br>
+	
+	<div style='color: #555555;'>
+	Each puzzle starts after 48 random moves have been made.
+	<br><br>
+	Always begins with one <span style='background-color: #99ff99'>winning</span> move; <span style='background-color: #ccccff'>draw</span> move(s) may exist.
+	<br><br>
+	Use "Hint" button to reveal the winning move(s).
+	</div>
+
+	</center>
+	
+	<center>
+	<div style='font-size: 15px; background-color: #cccccc; padding: 8px;'>
+	<a href='https://savvyopen.com/soOthello' target='_blank' style='color: #555555'>© 2025 Savvy Open</a>
+	</div>
+	</center>
+`,{	
+	close_button: false,
+	must_respond: true
+});
+
+
+
+</script>
+
+</html>
