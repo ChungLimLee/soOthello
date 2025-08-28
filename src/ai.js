@@ -42,6 +42,9 @@ Game.prototype.random_move = function(number_of_times) {	// crashes when try to 
 
 	for (var n = 0; n < number_of_times; n++) {
 
+		if (move_list.length === 0)
+			break;
+
 		random_select = Math.floor(Math.random() * move_list.length);
 		[row, column, list] = move_list[random_select];
 
@@ -69,6 +72,9 @@ Game.prototype._random_move = function(number_of_times) {	// For internal use an
 
 	for (var n = 0; n < number_of_times; n++) {
 
+		if (move_list.length === 0)
+			break;
+			
 		random_select = Math.floor(Math.random() * move_list.length);
 		[row, column, list] = move_list[random_select];
 
