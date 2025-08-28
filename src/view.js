@@ -74,3 +74,23 @@ Board.prototype.set_disk_container = function(row, column, colour, mode) {
 		disk.className = 'highlight_good_move';
 		
 }
+
+Board.prototype.adjust_view = function() {	// adjust board size according to the current screen size
+
+	var dimension = window.visualViewport;
+
+	if (dimension.height <= 550)	// slim landscape mode
+		var max_square_size = Math.min(dimension.width, dimension.height) * 0.63;	
+	else
+		var max_square_size = Math.min(dimension.width, dimension.height) * 0.80;
+		
+	var board_view = document.getElementById('board_view');
+	
+	board_view.style.width = max_square_size + 'px';
+	board_view.style.height = max_square_size + 'px';
+}
+
+window.addEventListener('resize', function() {
+
+	game.board.adjust_view();
+});
