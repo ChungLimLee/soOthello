@@ -185,38 +185,14 @@ Game.prototype._force_win = function(colour, opponent, _move_list, keep_checking
 
 
 
-// SURE WIN
-
-Game.prototype.sure_win_moves = function() {	// No need to specific colour, because a player's turn is to be determined
-
-	var row, column, list;
-	var current_turn = this.turn;
-	var move_list = this.move_list(current_turn);
-	var result = [];
-
-	for (var [row, column, list] of move_list) {
-
-		this._move(row, column, list);
-		[this.turn, move_list] = this.next_turn_and_next_move_list();
-		
-		if (this.sure_win(current_turn)[0] )	// current_turn here is necessary to track the correct colour for sure win
-			result.push([row, column]);
-
-		this._undo();
-	}
-
-	//this.view_refresh();
-	return result;
-}
-
-
-
-
 
 // SURE WIN
 
 Game.prototype.sure_win = function(colour) {	// When result is true, the game count is the number of ways for the entire path
 												// When result is false, the game count is just the number of ways to found out that 'one false' and stop counting
+
+	var initial_change_stack = Array.from(this.change);
+
 	var game_checked = [0];		// Minimum game checked to found out sure win or not
 	var time_start = Date.now();
 
@@ -232,6 +208,7 @@ Game.prototype.sure_win = function(colour) {	// When result is true, the game co
 	var result = [true];
 	this._sure_win(game_checked, this.move_list(this.turn), colour, result);
 
+	this.change = initial_change_stack;	// *** restore the "original change stack" back to prior using this function	
 	return [result[0], game_checked[0], (Date.now() - time_start) / 1000];
 }
 
