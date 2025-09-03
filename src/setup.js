@@ -115,7 +115,7 @@ Game.prototype.start = function(colour, mode) {
 
 Game.prototype.new_puzzle = function() {
 
-	modal_window_show(`<center style='padding: 30px;'><b>Creating End Game Puzzle</b><br><br>This can take 1 to 10+ seconds.</center>`, {close_button: false, must_respond: true});
+	modal_window_show(`<center style='padding: 30px;'><b>Creating Endgame Puzzle</b><br><br>This can take 1 to 10+ seconds.</center>`, {close_button: false, must_respond: true});
 
 
 
@@ -142,12 +142,69 @@ Game.prototype.new_puzzle = function() {
 			}
 		}	
 
-		if (win_result.length !== 1)
+
+
+		if (win_result.length === 1)
+			self.set_game_mode('play');
+		else
 			modal_window_show(`<center style='padding: 30px;'><b>Unable to find a puzzle within the expected time.</b><br><br><button onclick='game.new_puzzle();'>Retry</button></center>`, {close_button: false, must_respond: true});
 
 	}, 100);
 }
 
+var new_puzzle_modal = new modal_box$({z_index: 1});
+
+Game.prototype.new_puzzle_confirmation = function() {
+
+	new_puzzle_modal.show(`
+
+		<center style='padding: 20px;'>
+		Current game will be cleared?
+		<br><br>
+		<button onclick='game.new_puzzle(); new_puzzle_modal.close();'>Yes</button>
+		<button onclick='new_puzzle_modal.close();'>No</button>
+		</center>
+		
+	`, {width: '270px', close_button: false, must_respond: true});
+}
+
+Game.prototype.menu = function() {
+
+	modal_window_show(`
+	
+		<center style='padding: 0px 15px 30px 15px;'>
+		Mode:
+		<input id='play_mode' type='radio' name='game_mode' onclick='game.set_game_mode("play"); modal_window_close();' checked>Play
+		<input id='review_mode' type='radio' name='game_mode' style='margin-left: 20px;' onclick='game.set_game_mode("review"); modal_window_close();'>Review
+		<br><br><br>
+		<button onclick='game.new_puzzle_confirmation();'>New Puzzle</button>
+		<button onclick='game.input(game.output(48)); modal_window_close();'>Try Again</button>
+		</center>
+	`);
+	
+	if (game.game_in_session)
+		document.getElementById('play_mode').checked = true;
+	else
+		document.getElementById('review_mode').checked = true;
+		
+}
+
+Game.prototype.set_game_mode = function(mode) {
+
+	if (mode === 'play') {
+
+		this.game_in_session = true;
+		document.body.style.backgroundColor = '';
+		document.body.style.opacity = '';
+	}
+	
+	else {
+	
+		this.game_in_session = false;
+		document.body.style.backgroundColor = '#bbbbbb';
+		document.body.style.opacity = '0.90';
+	}
+}
 
 
 
@@ -159,6 +216,72 @@ Game.prototype.status = function() {
 	var disk_info1 = document.getElementById('disk_info1');
 	var disk_info2 = document.getElementById('disk_info2');
 	
-	disk_info1.innerHTML = `Move(s) Made: ${this.nth_move}`;
+	disk_info1.innerHTML = `Move(s) made: ${this.nth_move}`;
 	disk_info2.innerHTML = `Black: ${this.disk.black}, White: ${this.disk.white}`;
+}
+
+
+
+
+
+// GAME INPUT & OUTPUT
+
+Game.prototype.move_incoming_translation = {a:0, b:1, c:2, d:3, e:4, f:5, g:6, h:7}
+Game.prototype.move_outgoing_translation = {0:'a', 1:'b', 2:'c', 3:'d', 4:'e', 5:'f', 6:'g', 7:'h'}
+
+Game.prototype.input = function(play_line) {	// for user input play line with get method via URL
+
+	play_line = play_line.replaceAll(',', '');
+
+	if (play_line.length % 2 !== 0 || play_line.length < 96 || play_line.length > 120)	// only accept range 48 to 60 moves play line
+		return false;
+
+	game.start('black');
+
+
+
+	// process the play line
+	
+	var move, row, column;
+	
+	for (var n = 0; n < play_line.length; n = n + 2) {
+	
+		move = play_line.slice(n, n + 2);
+		row = String(Number(move[1]) - 1);
+		column = String(this.move_incoming_translation[move[0]]);
+		
+		if (this.valid_move(this.turn, Number(row), Number(column))[0] === true)
+			this.move('disk_' + row + '_' + column);
+		else
+			return false;	// input fail
+
+	}
+
+	return true;	// input successful
+}
+
+Game.prototype.output = function(up_to_nth_move) {	// output the current play line
+
+	if (up_to_nth_move === undefined)
+		var change = this.change.length;
+	else
+		var change = up_to_nth_move + 1;
+
+
+
+	var play_line = '';
+	var disk_change_list, last_entry, row, column;
+		
+	for (var n = 1; n < change; n++) {
+	
+		disk_change_list = this.change[n];
+		last_entry = disk_change_list[disk_change_list.length - 1];
+
+		row = this.move_outgoing_translation[last_entry[1]];
+		column = String(last_entry[0] + 1);
+		
+		play_line += row + column;
+	}
+	
+	return play_line;
 }

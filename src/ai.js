@@ -135,7 +135,7 @@ Game.prototype._force_win = function(colour, opponent, _move_list, keep_checking
 	var win_count = 0;	// the winning count per nth-move level
 
 	if (move_list.length === 0) {	// if no move for current player then it is end of game
-		
+	
 		if (this.disk[colour] > this.disk[opponent]) {
 						
 			return true;
@@ -147,6 +147,7 @@ Game.prototype._force_win = function(colour, opponent, _move_list, keep_checking
 
 
 	var row, column, list;
+	var hash;
 	
 	for (var entry of move_list) {		// run through all available move(s) at this turn
 
@@ -158,9 +159,8 @@ Game.prototype._force_win = function(colour, opponent, _move_list, keep_checking
 		[this.turn, next_move_list] = this.next_turn_and_next_move_list();
 
 		var answer = this._force_win(colour, opponent, next_move_list, keep_checking);
-
 		this._undo();
-
+		
 
 		
 		if (keep_checking === false)	// Exit at the earliest when no need to check anymore
@@ -383,7 +383,7 @@ Game.prototype.highlight_good_moves = function() {
 	if (this.nth_move < 48 || this.nth_move === 60)
 		return false;
 
-	modal_window_show(`<center style='padding: 30px;'>Computer Analyzing...</center>`, {close_button: false, must_respond: true});
+	modal_window_show(`<center style='padding: 30px;'>AI Analyzing...</center>`, {close_button: false, must_respond: true});
 
 
 
@@ -416,7 +416,7 @@ Game.prototype.highlight_good_moves = function() {
 			if (self.sure_win(game.turn)[0] === true)				
 				modal_window_show(`<center style='padding: 0px 15px 30px 0px;'>Guaranteed Win for ${self.turn[0].toUpperCase()}${self.turn.slice(1)}</center>`, {background_color: '#99ff99'});
 			else if (result.length > 1)
-				modal_window_show(`<center style='padding: 0px 15px 30px 0px;'>All Good Moves</center>`);
+				modal_window_show(`<center style='padding: 0px 15px 30px 0px;'>All Good Moves for ${self.turn[0].toUpperCase()}${self.turn.slice(1)}</center>`);
 			else
 				modal_window_close();
 				
@@ -437,4 +437,74 @@ Game.prototype.highlight_good_moves = function() {
 			modal_window_close();
 
 	}, 100);
+}
+
+
+
+
+
+// PLAY
+
+var ai_modal = new modal_box$({index: 1});
+
+Game.prototype.ai_play = function() {
+
+	// check if AI's turn
+	
+	if (this.turn === 'white') {
+
+		ai_modal.show(`
+		
+			<center style='padding: 20px;'>
+				AI Thinking ...
+			</center>
+			
+		`, {width: '200px', close_button: false, must_respond: true});
+	
+
+
+		var r = this.solve_all();
+		var self = this;
+
+		setTimeout(function() {
+				
+				// look for win first
+				
+				for (var win of r) {
+				
+					if (win[2] === 1) {
+					
+						self.move('disk_' + win[0] + '_' + win[1]);
+						ai_modal.close();
+						return;
+					}
+				}
+				
+
+
+				// look for draw second
+				
+				for (var draw of r) {
+				
+					if (draw[2] === 0) {
+					
+						self.move('disk_' + draw[0] + '_' + draw[1]);
+						ai_modal.close();
+						return;
+					}
+				}
+				
+				
+				
+				// random move
+				
+				var move_list = self.move_list(self.turn);
+				var random = Math.trunc(Math.random() * move_list.length);				
+				var move = move_list[random];
+				
+				self.move('disk_' + move[0] + '_' + move[1]);
+				ai_modal.close();
+				
+		}, 1000);
+	}
 }
