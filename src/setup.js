@@ -158,11 +158,11 @@ Game.prototype.new_puzzle_confirmation = function() {
 
 	new_puzzle_modal.show(`
 
-		<center style='padding: 20px;'>
-		Current game will be cleared?
+		<center style='font-size: 16px; padding: 20px;'>
+		Current game will be cleared!
 		<br><br>
-		<button onclick='game.new_puzzle(); new_puzzle_modal.close();'>Yes</button>
-		<button onclick='new_puzzle_modal.close();'>No</button>
+		<button onclick='game.new_puzzle(); new_puzzle_modal.close();'>Proceed</button>
+		<button onclick='new_puzzle_modal.close();'>Cancel</button>
 		</center>
 		
 	`, {width: '270px', close_button: false, must_respond: true});
@@ -313,4 +313,5 @@ Game.prototype.output = function(up_to_nth_move) {	// output the current play li
 	}
 	
 	return play_line;
+
 }
