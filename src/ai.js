@@ -376,6 +376,122 @@ Game.prototype._solve = function(colour, opponent, _move_list) {
 
 
 
+// AI RANK/GRADE
+
+Game.prototype.ai_container_rank = function() {
+
+	if (this.turn === 100)	// do nothing for end of game that solves the crash issues?
+		return;
+
+
+
+	var rank = [	// At the mid stage of the game, seems better when ranking the containers with 10 at the below (against consensus)
+
+		[100, 3, 50, 5, 5, 50, 3, 100],
+		  [3, 0, 10, 10, 10, 10, 0, 3],
+		[50, 10, 25, 50, 50, 25, 10, 50],
+		[5, 10, 15, 25, 25, 15, 10, 5],
+		[5, 10, 15, 25, 25, 15, 10, 5],
+		[50, 10, 25, 50, 50, 25, 10, 50],
+		  [3, 0, 10, 10, 10, 10, 0, 3],
+		[100, 3, 50, 5, 5, 50, 3, 100]	
+	];
+
+
+	
+	var original_turn = this.turn;
+	var move_list = this.move_list(original_turn);
+
+	var select_row = [move_list[0][0] ];	// temporarily select the first available candidate move
+	var select_column = [move_list[0][1] ];
+	var select_list = [move_list[0][2] ];
+	var propose_row, propose_column, random_select;
+	var row, column, list;
+
+
+
+	for (var n = 1; n < move_list.length; n++) {	// find the largest rank among all available moves
+	
+		propose_row = move_list[n][0];
+		propose_column = move_list[n][1];
+		propose_list = move_list[n][2];
+		
+		if (rank[select_row[0] ][select_column[0] ] < rank[propose_row][propose_column]) {
+			
+			select_row[0] = propose_row;
+			select_column[0] = propose_column;
+			select_list[0] = propose_list;
+		}
+	}
+
+
+
+	for (var n = 1; n < move_list.length; n++) {	// find any other with the same rank as the largest rank then add to the candidate list
+	
+		propose_row = move_list[n][0];
+		propose_column = move_list[n][1];
+		propose_list = move_list[n][2];
+		
+		if (rank[select_row[0] ][select_column[0] ] === rank[propose_row][propose_column]) {
+			
+			select_row.push(propose_row);
+			select_column.push(propose_column);
+			select_list.push(propose_list);
+		}		
+	}
+
+
+
+	while(select_row.length > 0) {
+
+		random_select = Math.floor(Math.random() * select_row.length);
+		[row, column, list] = [select_row[random_select], select_column[random_select], select_list[random_select] ];
+
+		this._move(row, column, list);
+		[this.turn, move_list] = this.next_turn_and_next_move_list();
+
+
+
+		if (select_row.length > 1)
+			this._undo();
+		
+		if (select_row.length > 0) {
+		
+			var new_select_row = [];
+			var new_select_column = [];
+			var new_select_list = [];
+			
+			for (var n = 0; n < select_row.length; n++) {
+			
+				if (n !== random_select) {
+				
+					new_select_row.push(select_row[n]);
+					new_select_column.push(select_column[n]);
+					new_select_list.push(select_list[n]);
+				}
+			}
+			select_row = Object.assign([], new_select_row);
+			select_column = Object.assign([], new_select_column);
+			select_list = Object.assign([], new_select_list);		
+		}
+	}
+
+
+
+	this._undo();	// *** temporarily fix, undo the candidate move made in the back scene and move it with this.move at below, because it highlight the last move made properly
+
+	var disk_id = 'disk_' + row + '_' + column;
+	this.move(disk_id);
+	
+	
+	
+	return [row, column, move_list];	// for chaining purposes and efficiency
+};
+
+
+
+
+
 // HIGHLIGHT WIN MOVE(S)
 
 Game.prototype.highlight_good_moves = function() {
@@ -495,14 +611,8 @@ Game.prototype.ai_play = function() {
 				}
 				
 				
-				
-				// random move
-				
-				var move_list = self.move_list(self.turn);
-				var random = Math.trunc(Math.random() * move_list.length);				
-				var move = move_list[random];
-				
-				self.move('disk_' + move[0] + '_' + move[1]);
+
+				self.ai_container_rank();
 				ai_modal.close();
 				
 		}, 1000);
