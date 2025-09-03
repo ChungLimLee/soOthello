@@ -9,6 +9,19 @@
 
 <html>
 
+
+
+<head>
+	<title>SO Othello - unlimited endgame puzzles</title>
+	<meta name="viewport" content="width=device-width">
+</head>
+
+
+
+<body>
+
+<script src='modal box.js'></script>
+
 <link rel="stylesheet" href="view.css">
 
 <script src='setup.js'></script>
@@ -16,29 +29,18 @@
 
 <script src='move.js'></script>
 <script src='ai.js'></script>
+<script src='share.js'></script>
 
 
 
-
-
-<head>
-	<title>SO Othello - ending puzzles</title>
-	<meta name="viewport" content="width=device-width">
-</head>
-
-
-
-
-
-<body>
 <center>
 <div id='master_view' class='center'>
 
-<button style='margin-right:18px;' onclick='game.new_puzzle();'>New</button>
+<button style='margin-right:13px; font-weight: bold;' onclick='game.menu();'>Menu</button>
 <div id='disk_info1' style='display:inline-block;'>
 	Move(s) Made: 0
 </div>
-<button style='margin-left:18px;' onclick='game.highlight_good_moves();'>Hint</button>
+<button style='margin-left:13px;' onclick='game.highlight_good_moves();'>Hint</button>
 <br>
 
 <div id='disk_info2' style='margin-bottom: 8px;'>
@@ -48,18 +50,16 @@
 
 <div id='board_view' style='margin-bottom:12px;'></div>
 
-<button style='margin-right:20px;' onclick='game.undo()'>< Undo</button>
-<button onclick='game.redo()'>Redo ></button>
+<button style='margin-right: 20px;' onclick='game.undo();'>< Undo</button>
+<button onclick='game.share_menu();' style='font-weight: bold; background-color: #ffff88;'>Share</button>
+<button style='margin-left: 20px;' onclick='game.redo();'>Redo ></button>
 
 </div>
 </center>
-</body>
 
 
 
 
-
-<script src='modal box.js'></script>
 
 <script>
 
@@ -71,37 +71,86 @@ var game = new Game(8, board);
 game.board.adjust_view();
 game.start('black');
 
-modal_window_show(`
 
-	<center style='padding: 30px;'>
 
-	<b>SO Othello - ending puzzles</b>
-	<br>
-	v1.0.0
-	<br><br>
+// check if any user game input to process
 
-	<button class='highlight_go_play' onclick='game.new_puzzle();'>Go Play</button>
-	<br><br>
+var url = new URL(window.location.href);
+var user_play_line = url.searchParams.get('play');
+
+if (user_play_line !== null) {
+
+	var user_game_modal = new modal_box$({z_index: 1});
 	
-	<div style='color: #555555;'>
-	Each puzzle starts after 48 random moves have been made.
-	<br><br>
-	Always begins with one <span style='background-color: #99ff99'>winning</span> move; <span style='background-color: #ccccff'>draw</span> move(s) may exist.
-	<br><br>
-	Use "Hint" button to reveal the winning move(s).
-	</div>
-
-	</center>
+	var result = game.input(user_play_line);
 	
-	<center>
-	<div style='font-size: 15px; background-color: #cccccc; color: #555555; padding: 8px; cursor: pointer;' onclick='external_link_confirmation("https://github.com/ChungLimLee/soOthello")'>
-	© 2025 Savvy Open
-	</div>
-	</center>
-`,{	
-	close_button: false,
-	must_respond: true
-});
+	if (result === true) {
+
+		user_game_modal.show(`
+		
+			<center style='padding: 0px 15px 30px 15px'>
+				<b>Game Invitation</b>
+				<br><br>
+				You are challenged to solve this puzzle.
+			</center>
+			
+		`, {width: '280px'});
+		
+		game.set_game_mode('play');
+	}
+	
+	else {
+	
+		user_game_modal.show(`
+		
+			<center style='padding: 0px 15px 30px 15px'>
+				<b>Invalid Game Input</b>
+				<br><br>
+				It must be between the moves 48 to 60.
+			</center>
+			
+		`, {width: '220px', background_color: '#ff8888'});
+	}
+}
+	
+
+
+// display normal startup when no user specific play line or user game rejected
+
+if (user_play_line === null || result === false) {
+
+	modal_window_show(`
+
+		<center style='padding: 30px;'>
+
+		<b>SO Othello - endgame puzzles</b>
+		<br>
+		v1.0.1
+		<br><br>
+
+		<button class='highlight_go_play' onclick='game.new_puzzle();'>Go Play</button>
+		<br><br>
+		
+		<div style='color: #555555;'>
+		Each puzzle starts after 48 moves have been made.
+		<br><br>
+		Always begins with one <span style='background-color: #99ff99'>winning</span> move and <span style='background-color: #ccccff'>draw</span> move(s) may exist.
+		<br><br>
+		Use "Hint" button to reveal the <span style='background-color: #99ff99'>winning</span> and/or <span style='background-color: #ccccff'>draw</span> move(s).
+		</div>
+
+		</center>
+		
+		<center>
+		<div style='font-size: 15px; background-color: #cccccc; color: #555555; padding: 8px; cursor: pointer;' onclick='external_link_confirmation("https://github.com/ChungLimLee/soOthello")'>
+		© 2025 Savvy Open
+		</div>
+		</center>
+	`,{	
+		close_button: false,
+		must_respond: true
+	});
+}
 
 
 
@@ -132,5 +181,5 @@ function external_link_confirmation(link) {
 
 
 </script>
-
+</body>
 </html>
