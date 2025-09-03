@@ -1,4 +1,4 @@
-/*
+﻿/*
 	Copyright (c) 2025 Chung Lim Lee and Savvy Open
 	All rights reserved.
 */
@@ -175,10 +175,19 @@ Game.prototype.menu = function() {
 		<center style='padding: 0px 15px 30px 15px;'>
 		Mode:
 		<input id='play_mode' type='radio' name='game_mode' onclick='game.set_game_mode("play"); modal_window_close();' checked>Play
-		<input id='review_mode' type='radio' name='game_mode' style='margin-left: 20px;' onclick='game.set_game_mode("review"); modal_window_close();'>Review
+		<input id='review_mode' type='radio' name='game_mode' style='margin-left: 20px;' onclick='game.set_game_mode("review"); modal_window_close();'>Study
 		<br><br><br>
-		<button onclick='game.new_puzzle_confirmation();'>New Puzzle</button>
 		<button onclick='game.input(game.output(48)); modal_window_close();'>Try Again</button>
+		<br><br><br>
+
+		<button style='margin: 8px 8px 12px 12px;' onclick='game.new_puzzle_confirmation();'>New Puzzle</button>
+		<button style='font-weight: bold; border-radius: 10px;' onclick='modal_window_show(game_instructions, {close_run: function() {game.menu();}});'>?</button>
+		</center>
+
+		<center>
+		<div style='font-size: 15px; background-color: #cccccc; color: #555555; padding: 8px; cursor: pointer;' onclick='external_link_confirmation("https://github.com/ChungLimLee/soOthello")'>
+		© 2025 Savvy Open
+		</div>
 		</center>
 	`);
 	
@@ -202,9 +211,29 @@ Game.prototype.set_game_mode = function(mode) {
 	
 		this.game_in_session = false;
 		document.body.style.backgroundColor = '#bbbbbb';
-		document.body.style.opacity = '0.90';
+		document.body.style.opacity = '0.85';
 	}
 }
+
+
+
+
+
+// GAME INSTRUCTIONS
+
+var game_instructions = `
+
+	<center>
+	<div style='color: #555555; padding: 8px 15px 30px 15px;'>
+	Each puzzle starts after 48 moves have been made.
+	<br><br>
+	Always begins with one winning move and may also have draw move(s).
+	<br><br>
+	Use the "Hint" button to reveal the <span style='background-color: #99ff99'>winning</span> and/or <span style='background-color: #ccccff'>draw</span> move(s).
+	</div>
+	</center>
+`;
+
 
 
 

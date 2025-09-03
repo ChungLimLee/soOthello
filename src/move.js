@@ -213,20 +213,22 @@ Game.prototype.next_turn = function() {
 
 			<center style='padding: 0px 15px 30px 15px;'>
 			<span style='font-size: 26px;'>${modal_result}</span>
-			<br><br>
-			<button onclick='modal_window_close(); game.input(game.output(48)); game.set_game_mode("play");'>Try<br>Again</button>
-			<button onclick='modal_window_close(); game.set_game_mode("review");'>Review<br>Only</button>
 			<br>
+			<span>black: ${game.disk.black}, white: ${game.disk.white}</span>
+			<br><br><br>
+			<button onclick='modal_window_close(); game.input(game.output(48)); game.set_game_mode("play");'>Try Again</button>
+			<button onclick='modal_window_close(); game.set_game_mode("review");'>Review Puzzle</button>
 			</center>
+			<br>
 
 			<center>
 			<div style='background-color: #e0e0e0; padding: 20px 15px 20px 15px;'>
-			<button onclick='game.new_puzzle_confirmation();'>New<br>Puzzle</button>
-			<button onclick='game.share_menu();'>Share this puzzle<br>with friends</button>
+			<button onclick='game.new_puzzle_confirmation();' style='color: #282828'>New<br>Puzzle</button>
+			<button onclick='game.share_menu();' style='color: #282828'>Share this puzzle<br>with friends</button>
 			</div>
 			</center>
 
-		`, {width: '280px', must_respond: true});
+		`, {must_respond: true});
 		
 		console.log('game over');
 	}
