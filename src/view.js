@@ -45,7 +45,11 @@ Board.prototype.set_event = function(game) {
 
 			document.getElementById(disk_id).onclick = function() {
 
-				game.move(disk_id);
+				if (game.turn === 'black' || game.game_in_session === false)		
+					game.move(disk_id);
+				
+				if (game.game_in_session)
+					game.ai_play();
 			}
 		}
 	}
