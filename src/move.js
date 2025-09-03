@@ -41,7 +41,7 @@ Game.prototype.move = function(disk_id) {	// for interaction game play with disp
 		this.turn = this.next_turn();
 		this.highlight_valid_move(this.turn);
 		this.highlight_last_move();
-		this.status();
+		this.status();		
 	}
 }
 
@@ -194,6 +194,9 @@ Game.prototype.next_turn = function() {
 	else if (this.move_list(this.turn).length === 0) {
 
 		result = 'no more turn';
+		this.set_game_mode('review');
+		
+		
 		
 		if (this.disk.black === this.disk.white)
 			var modal_result = 'Draw Game';
@@ -203,13 +206,48 @@ Game.prototype.next_turn = function() {
 			
 		else
 			var modal_result = 'White Wins';
+
+
 			
-		modal_window_show(`<center style='padding: 0px 15px 30px 15px;'><span style='font-size: 26px;'>${modal_result}</span><br><br><button onclick='modal_window_close(); game.new_puzzle();'>Play Again?</button></center>`);
+		modal_window_show(`
+
+			<center style='padding: 0px 15px 30px 15px;'>
+			<span style='font-size: 26px;'>${modal_result}</span>
+			<br><br>
+			<button onclick='modal_window_close(); game.input(game.output(48)); game.set_game_mode("play");'>Try<br>Again</button>
+			<button onclick='modal_window_close(); game.set_game_mode("review");'>Review<br>Only</button>
+			<br>
+			</center>
+
+			<center>
+			<div style='background-color: #e0e0e0; padding: 20px 15px 20px 15px;'>
+			<button onclick='game.new_puzzle_confirmation();'>New<br>Puzzle</button>
+			<button onclick='game.share_menu();'>Share this puzzle<br>with friends</button>
+			</div>
+			</center>
+
+		`, {width: '280px', must_respond: true});
+		
 		console.log('game over');
 	}
+	
 	else {
 		result = this.turn;
-		modal_window_show(`<center style='padding: 0px 15px 30px 15px;'>${this.opponent(this.turn)} pass</center>`);
+		
+		modal_window_show(`
+		
+			<center style='padding: 0px 15px 30px 15px;'>${this.opponent(this.turn)} pass</center>
+		`,{
+			width: '250px',
+			
+			close_run: function() {
+
+				if (game.game_in_session && game.turn === 'white')	// AI only plays during game in session when black pass
+					game.ai_play();
+					
+			}
+		});
+		
 		console.log(this.opponent(this.turn), 'pass');
 	}
 
