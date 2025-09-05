@@ -1,0 +1,137 @@
+/*
+	Copyright (c) 2025 Chung Lim Lee and Savvy Open
+	All rights reserved.
+*/
+
+
+
+
+
+// *** THESE ARE COPY FROM 'interesting endgames - hand selected.txt'
+// *** DO NOT MODIFIY EXISTING ENTERS AND TABS;
+// *** THE FIRST AND LAST ENTRY OF THIS LIST IS ALWAYS EMPTY
+
+var favourite_puzzle = `
+#1	https://savvyopen.com/othello?play=d3c5d6c3b4b5d2d7d8b3a5c7a3d1b6f5g5g6e7g4f3a7h7g7h3f6h4g3e6e2h6f8e1c8f2c6b7a4c4a8f4a6h8e3e8h2g8b2
+#2	https://savvyopen.com/othello?play=c4c5b6c3c2a7e6f4g4c1b4f5b2h3h4e3e2a4a5a2h2d7c8a6b3d6b5f7a3f3g3d8a1g6g5d2b7b8a8f6c6h5d3c7d1e1f1b1
+#3	https://savvyopen.com/othello?play=f5f4c3c4e3f6g6b2f7f2b4a4d3g7b3c5a5a3g4e7d6b5g8h8e6h4d8c7c6e8c2c8b8d2h7h5e2b6b7d7f8a7g3f1g1f3h6h1
+#4	https://savvyopen.com/othello?play=d3c5f6f5g6e3f3d2b6c3c1g5c2a7h4g2d6c6c4g7a6f4e6b1a1c7g8b2a2h8c8b7d7b8g4g3g1e1d8b5e2d1f7f1f2h2a5h1
+#5	https://savvyopen.com/othello?play=c4c5c6c3e3c7f5g5b6a6f6f4h4f7g3e2b4d3e1a5f8f1b3d2c8b2g1e6f3d8c2d1c1g6d7f2g4h3h7b5a7d6g7h8e8g2h6a8
+#6+	https://savvyopen.com/othello?play=f5d6c3f3e3d3c7e6c5c4d2c6d7c8b4b3f4f6b7c1b2a1e1c2e7a4f2e2a2a3g3h3h2a6a5b6g7b5b8d1h4e8g5h6f7g6b1f1
+#7	https://savvyopen.com/othello?play=e6f4g3c6c3f5g4c4c5b6c7e7e3h3f6f2b5d8e8b2g1g7a6a5a4g5h6f7c8f3h7f1c2e2a1c1e1d6d3g8g2f8b1h2b7h4h8d1
+#8	https://savvyopen.com/othello?play=e6f6g6c5c3f7b5h5g8e8f8d6e7e3f2c4f4a5d7c8f5c6b3g7b4g4c7h8f3d2h3a3d3d8a6h4c2b8e1g3e2g5h6a4h2f1b2c1
+#9	https://savvyopen.com/othello?play=f5d6c5f6e6b6c7d8g6f4f3g5b8f2g3e3b4h2g1e1h3g7h5c3f7d2a7b5h1f8c4a3c2g4e2b7a6d3c8d7a5b2e7a4b3a8f1a2
+#10+	https://savvyopen.com/othello?play=f5f4e3f2c3c4e2d6b4b2d2c1f6f3f1e6c7a5d3g3h4c5d7e1b5c6b6c8b3a7d1a4b1d8b7f7g5a3g4a8g6a1e8h3c2g2g1h6
+#11+	https://savvyopen.com/othello?play=d3c5e6f5c4e7b5c2f7a5d6d7e2f1b3a4c7e8c6d8f3b4f6f8f4f2g4g6e3b6g7h4g5h7e1d1b8c8g2h2h1a8a7a6a2h3g8c3
+#12+	https://savvyopen.com/othello?play=e6f4f3d6c4b4f5g3c6c7d7e7b8g2f8e8c8b7a6g5h2a8d8g8b6c5f6h3f2g4e3e2h4g1c3a7f1h5h6g6h7g7d3a5h1c2f7d2
+#13	https://savvyopen.com/othello?play=c4c5c6c3e6c7b4f3f4e3c8b3b2d3g3f5g6a2d6e2a3c2c1g4g2e7h5d7a1a4d1f1f2f6d2b6e8b7b5a6g5h4h3h1e1d8h2h6
+#14+	https://savvyopen.com/othello?play=d3e3f5c3e2d6b3g5g6f2g4h5f3f7g2h1h2b2e6d1c5h3d7c2e1b5c1d2g8g3h4g1g7h7a5c8c4a3a1b1d8b6a2b4h6f4h8f1
+#15	https://savvyopen.com/othello?play=f5f6d3f4g6c4f7c5c3g5b5c2d2d1h4h5b1e8h7e3c6b3f8b6e2f2a3a6a4c7e6h3b7c8e1b4d6c1f3a5g1b2a8g8a1a2g4a7
+#16	https://savvyopen.com/othello?play=e6f6c4c5g6f7e7b3d6f4g7e8b5g5c3c6d8c2g4e3d3f8a3h7g8d2f5h4b6h6f3e2d1c7c8a5a6b1a4b8c1e1f2a2b4f1b2a1
+#17	https://savvyopen.com/othello?play=c4e3f5c5f4e6d3b3d7g4f3e7h4c2d6g2b5g6g5b4a4b6d2d1e8c3c6g3h1d8a7c7b7f2g1f7e2h2c1c8e1f8a5h3g7b2a1h6
+#18	https://savvyopen.com/othello?play=c4c3e6c5d3e2b3f6c6d6c2a2d7d1b5f5f3g4b1b2b4c7g7f4h3d8f1c1b7a8e7h8b8h4h5c8d2f7b6a7a6g2g3a5g6a3h1h2
+#19+	https://savvyopen.com/othello?play=c4c5c6c3f5b6a6c7c8f6d3f4g4c2d2f3c1b4a4g3g2h2g6g1f7h4e6f2f1d7d6b5e8h7h6f8g7d1e3b1g5a7a8a3b7e7b2a5
+#20+	https://savvyopen.com/othello?play=f5f6e6d6f7g5c4g6d7e3f3c3h6f4b2c7g4g7d2c5b5d8c8a1h7h4b7e1e7a5c6h8c2b4h5f2g1a8c1e2g8b8d3b6f1e8d1f8
+#21	https://savvyopen.com/othello?play=e6f4g3g4e3f6c4d6f7b4b3f2f3h2f5e2a4g6d2f8e7d8d7c7g5h4h7d3b8b6h3c1f1c5h1h5c2a3c6b2c8c3a6a5a7g1g2b5
+#22+	https://savvyopen.com/othello?play=f5f4g3e6d7d6c7g6c5e7g5c4b4h5f8f3e3b3a2b5b6d3g4e8d2b8h7g7c6d8h6a6b7a3c8c2d1a5a4h3g2h8c3f2a8f7e1e2
+#23+	https://savvyopen.com/othello?play=f5d6c4f4c5d3e3f3c2b3e7e2f2d7d1c6a4f8e6b5d8c7e8a2b4a3g8g5h6g3f7a5c8b7g4f6g7g2h2b8a6h1a1e1b6g6f1d2
+#24	https://savvyopen.com/othello?play=f5f6f7f4d3c4b5c6d7g7g4f3e2e7f8c2e6c7e8f1d1c5b7c3b1c8b2c1b6a2h7h3a1a7g5a4h5a6b3e1d6g3a8h8a5d2e3d8
+#25	https://savvyopen.com/othello?play=d3c3c4c5b4d2c2f3c6b7c7b6a7b2f4a8e6d7e1a6a1e2d1e3b1g4c8a4b5a2b8d6g2f6h4g3a3e8g7d8f7h5e7h1h2f5a5b3
+#26	https://savvyopen.com/othello?play=e6d6c5f4f5b4b5e7b3g5f3d3e3g3f8c7d7d8h5g4f7c6c3a5c8b2b6d2d1g6a4c4h2a7f2g1b1e8f1g2b8a1c2a3a6a8e2g8
+#27-	https://savvyopen.com/othello?play=d3c5e6f7d6f5c6e7c4b3d7c3a2e3e2d8f8b4f6a3e8c7b2d2b6a7b5f2c8b1g6g5d1f4h4b7f1h5g2c2g3c1h6h7g4h2f3a1
+#28-	https://savvyopen.com/othello?play=c4e3f4g5e2c3g4f2e6g3h2g2d2e1c5b6c2e7f3d6e8f8h3c1h6f6c7f5d7d1d3c6b4c8b3h5a7a4g6h7a3a5b5f7b2h1f1b7
+#29-	https://savvyopen.com/othello?play=d3e3f2e2d2c6f3e1f4c3b7g1d1c5g2c1b3a3d6g5b5e6e7f1g4f6g3d8e8f8c2b4h6f5b2a5a4b6a2a1a6h2g6c7a7b8h1a8
+#30	https://savvyopen.com/othello?play=f5f4f3g4e3e6g5d6h5g3e7g6c3c4h2e8c6f2c5b6f6d3g7b2f1b4a6h4b3a7h6c2b1d2a3a2e1a5d8d7h3b7f8g1h1a4b5e2
+#31	https://savvyopen.com/othello?play=d3c3c4e3f5g6d2c2b4b3c1d6h7f3a3a2e2b5a5g5b2e1g3a4g4b1d7c7a1e7d1f1f6c6e8e6b7h5c5b6g2a6h3c8d8f4a7f2
+#32	https://savvyopen.com/othello?play=d3c5c6c3c4b5e6e2b2b3a4d6c7b7a8d7b4f6e8a5f7b8e3b6g7e7f5d2f3a3d1f4a7a6g4e1c2g5a2c1f1c8h5h6f2g8g6a1
+#33	https://savvyopen.com/othello?play=e6f6d3d6f5c3d7d8c6g5g6f4g4h3g3h4b3h6e7f7e3c2e8d2c1b4b2a3b5c5g8a5e2e1a4b1g7h5a6h2b6f1g2c4a1b7f3c7
+#34	https://savvyopen.com/othello?play=e6f4c3d6g4b2d3d2c4e3c6c7d7g5f2b7b8f3b6f1d1b4e2c1c2f6f5g3h6c8h4g6a5a4h5a8e7b1e1b3a7h3g2g1f7e8a3g7
+#35	https://savvyopen.com/othello?play=e6d6c6f6f5d7c3g4g7g6c7g8e8b7e7f3b5b2g2b8a8d8g5a4h3h4c4f8c8g3b6h2f7e2c2h1h7h6a1f4a6a5h5h8c5a7e3b4
+#36-	https://savvyopen.com/othello?play=e6d6c6f4e3d2g4g5g3g2h2f6g1d7g6f3c3c4e2b2b3g7c5b4c2c7e7h4b6b5b7h6a1e1d3f7f1b8e8a2c1h1a6b1f2a5c8f8
+#37	https://savvyopen.com/othello?play=c4e3f3c3e6g3c2b4c5d6b5f6e2b3a3c6b7f2f5d2f7g6c7a4h5g5e7d3h4d1g4b2a1h7f1a5g2f8g7f4d8b8e8b1c8a8e1a2
+#38	https://savvyopen.com/othello?play=f5f4c3f6g7c4b3e6g5b4d6d2b2b1g4d3c2h8a3h4a2c5g3c1f7e3h5h2d1f8h3h6b5g6g2c6e2a4a6e1c7f3a5e7b6a1d7c8
+#39+	https://savvyopen.com/othello?play=f5f6c4c3f7g7e6b4h7f8g6h6d3g5e7e3b2c2h5f4g8h8e2d2b3e1d1d8g4c5f2b1f3d6a2g3c6d7f1c1a3g1h3h4g2h2c8b5
+#40	https://savvyopen.com/othello?play=e6f4g3c6c4f3f2d3c3b5c5e7f6b4a5a4e3d6b6a6b3g4h5h4h3g7g5a7f8g1f1b7b8d2e2h6c2e1g6d7f5c1b1g2d8h2h1e8
+#41-	https://savvyopen.com/othello?play=c4e3f4c5e6f6c6e7d2d6c7b3e8b5a4a6d3c8c2f7b8f8d7a2g8f5g6c3a3g3g4g7h6a5d8c1g2h5b2f3h3h2b6a7f2g1g5h8
+#42	https://savvyopen.com/othello?play=d3c3e6d6c7f7f6d2c6f5d1c2g4d7f3h3g8b8c4c5f4g7b6a5e8e1g6g3b1h6b4a3g5c1h4f2e3e2c8f8a8h5h7a1a4b3b2a2
+#43	https://savvyopen.com/othello?play=d3e3f6c4c3e2c5b4e1f3b3b5a3b6b7c2g4a6d2a7c1a4a5a2f2b8b2b1a1f4f5f1a8g3h2c6g2f7g1h5c8d1f8g5d6e6g6c7
+#44-	https://savvyopen.com/othello?play=c4e3f6c5f4f5e2b3d6e7d8g4g3e6b4f7h4d3g7h2a2c6c7a4f3c8g2f8e8h3d7h8h7c2a3g6b1b5a5f2b7b6d2g5h6b8a6e1
+#45-	https://savvyopen.com/othello?play=e6f6f5f4g4e7d7c7d3h3f7c2g6c4d8g8b1h6g5e2b7h5c3c8d6a7b4a4g3g7e8g2b8d2h2b2f8c6d1c5h8f3a2h1g1h7f1c1
+#46-	https://savvyopen.com/othello?play=c4e3f5c5e2g5c6d3h5d6c7f6d2b5f3f4g6c3g3c8e7e6a6h2b2g2g4e1f1b4c2h3a5h7h6b1g1c1b6f2d1e8f7a1f8a7b8a3
+#47+	https://savvyopen.com/othello?play=f5f4f3f6c4g3g7f2f1e3d2d6g2f7h3h7g6h2h1c3b4c5g5g1d3c2f8e6c6h4e2a4h6d7g4d1b5h8c8b6b2a1h5b1b7e7a5c7
+#48+	https://savvyopen.com/othello?play=f5d6c5f6e6b4b5f4d7a5g6g7g3e7c6g5f8e3h4h6d3f7f3c3h7c7g4g2a3h8c4c2e2f1b3f2a6a7e1e8d1h3h2d2h5g1b8c8
+#49-	https://savvyopen.com/othello?play=e6f6c4c5g7f5c6f7g8b5g6e7a5h6h7g4g5h8e8d6d7f8g3g2h3c7g1b3d8d3e3a6b7a4c2b6a7c8b4b1c3d2a3f4e1a2a1h4
+#50-	https://savvyopen.com/othello?play=d3e3f4c5d2e2f5f3f2g4h3c3c6f6c2g3g2h2f7g5h5d1h4d6c1e1b6a6d7g1c4b3b2g6c7d8c8b7a7b4a3a8e8f8b5a5b8e6
+#51-	https://savvyopen.com/othello?play=e6d6c6f4f3c7d7e7c4c3f7f5e8c8d3c2e3g7d2g3f6g5f2e1h8b5f8d8g6g8h6e2b1h5b4b2b3a3g2f1b8a2d1h1h2c5b6h3
+#52-	https://savvyopen.com/othello?play=e6f6d3c3c4c5b2e2c6a1f5b5f7d7b7g7a5g6g5a8c8b6b8a4c2f4b3d8e7h6f3c1h7d2h4f8d1g2b1e1e3g8g3a3h1a7h8g4
+#53	https://savvyopen.com/othello?play=d3e3f4c5d6c3e2f3b4g5g4f1b3d2g3a3b2h3g2b6b5h4e1c1b1f5f6a1a7h1h6g7h5d7e7b7h2d1a5f8b8f2c7h7h8g6c6e6
+#54+	https://savvyopen.com/othello?play=e6f6d3d6f5e3d7c3e2f1g7g6d2f3e1d8c6f2h7e7c8d1e8h8f7c7g2h2b2b3b6g4c2h6g1b1c5a6f4g3g5g8a3b7a5h4a8c4
+#55-	https://savvyopen.com/othello?play=d3c3b3c5c6c7b5d2d1b2b1a1e3c1e6f6c4a5b6a2a3e2f4f5d8d7f2f3e7b4g6g5c2f1e1e8a4b7a6c8g3f7a7a8d6h6f8h2
+#56-	https://savvyopen.com/othello?play=f5d6c4d3c5b6c2b4a4c3c7d8d2e2c6c1b1f3a7d7b2g5e6a2a1a5b8f7d1e7a3b5g7e1b3e8f4e3f6h7g2g4f2g1g8g6g3f1
+#57-	https://savvyopen.com/othello?play=f5d6c4d3c6b5d2e6e7g5g4f4a4f6e3a6b4b3c5f8d7e2g7b6g6h4f3h8f7c3h7c1h6g3b7d8h3g8g2h5d1c7a3h1f1e1a5b8
+#58	https://savvyopen.com/othello?play=c4e3f3c3d3c5b6g3b4b5d6d7c2a3h3f4d8e2a5e7f1c1b1e1a4a1b2c6e6f2f8g1g4c7a2f7f6a7d2g5e8g7g8b3h6g2b7f5
+#59+	https://savvyopen.com/othello?play=d3c5c6c7e6f3b6b5d8e3a5e7f7g7d7a7f5b4c4g5g6c8h5b3f2c3b7a8f4g3h4f6a2g4b8g1e8a4h3g2a3f8e1h2d2c2e2h6
+#60	https://savvyopen.com/othello?play=e6d6c6d7c8f3g2d8c3f5g4d3d2d1e1g5e8h3c2e7h5f4e3f6g7f7c5b5g6f2e2h4h2c1b6f1c4h6a4c7g1g8h8h7f8a5b3h1
+#61-	https://savvyopen.com/othello?play=c4e3f4g3e2e1f5g6f2c5b6b3b4d2a2g1f6b5a6f7e6d6f3d3g8g4d1a3h5h6a4c3d7h4h2g2f1a5c2b7g5c8a7e7e8b2b8f8
+#62	https://savvyopen.com/othello?play=e6f6c4c3f5b4b2d2a4a1g6a5c2f4a2c6e2g5f3h7g4f7d6e7a6c7c5h3b7a7b8b5b6c1h4g2d7h5d3e1g7h8b3a8e3g8h6f2
+#63-	https://savvyopen.com/othello?play=c4e3f6c6c5b4c3e6a5b5f2g1a6b3d6a4f5a7a3g6b7d7g7b2g5c8a8g4a2d3c2h6f3f4f7b1g3h3e8b6d2h5h2c1e7b8f1c7
+#64-	https://savvyopen.com/othello?play=f5d6c5b4d3e3b5b6f3f2c7f4g2d7g3b7f1h2g4d2c2h3e6e1b8c3a5g1c1h4a7d1c8e7e8b3b2f8c6a8b1a4h1f7a6a3g5c4
+#65-	https://savvyopen.com/othello?play=f5d6c6b6b7f4a6a8f3g4h3f6b8f2g2d3c4c3f7c8b2h1c7h4e6b4f1g7e3d2c5g8f8g6d1b5e7e8h5c2a4g1c1g3d7b1a5a3
+#66	https://savvyopen.com/othello?play=c4c3e6f4g4f6d3d6c7b3g7c6b4d2b7g6d7d8e1b2c5b5e3f5a1g8a3h3e7a2g5h5b6a5h8c2h7a4g3d1c8f2f8a8a6h6g1g2
+#67	https://savvyopen.com/othello?play=d3c3e6e3c2f4b2c4f5e7f7g8d7a1d6e2e8c5g6h7g4g5b3a3h5d8b4h4d2g7h3b5b6c1a2c7c8g3d1b1f1a7a4c6f6a5f3f8
+#68	https://savvyopen.com/othello?play=f5f4c3c6c5c4c7d6g3b5b4d7e7f6e6g4g6b6e3d8g5d3a7f7a5a3d2h6b7e1b3f2e2h4h3c2c1a6h7b8h5b2c8f3f1a8f8a4
+#69+	https://savvyopen.com/othello?play=c4c5f6d3e2c3c6f5d6f4b5b7c7b6b4f7a5c8d2a4b3f1a3d7g5b2e8c2a8h4h5a7e3f3a1a6g4d8b8h6c1h3d1e6g3g2g8b1
+#70+	https://savvyopen.com/othello?play=e6f6d3c3c4d6c2c5g7d2f7f4b5a6d7h8a5b1d1c6a7g8b4a4b3c1a1d8f5a8g4f3a3h3b2a2h4e1e8e3c8g5e2f1f2b7g6g3
+#71	https://savvyopen.com/othello?play=c4e3f6b4c3c6a5a4d6e6f2d2a3e2f4c5e7g5c7b6d3g7a6c8f3e8g6g4g8h6g3g2e1b3d7h3a2h5h4g1h7a7f1h8f8d8f7a1
+#72-	https://savvyopen.com/othello?play=f5f4g3e6d7c5b5c6c3e8d6g6c8f3g2f6f7c4h5g8b7h2h3c2e7a4b3g7a5a2h1d8b4a8f8b8c1g4c7h7h8e2g5e3d2b2a1d3
+#73-	https://savvyopen.com/othello?play=d3c3f5e3b2b3e2b1a1g6d2c5b4f2d6e1c1c7f4a5a3b5b6f3g3a7g5h2g2f1h3h5d7h1b7h4h6b8g7c2e7f7d8c4g1h7d1a4
+#74-	https://savvyopen.com/othello?play=e6f4e3d2d3d6c2b2d1f3c4e2e1b4b5f5c7f1g4b6a2h4a5f7a6d7d8g2g5b3f2h5h2b7a4c1e7c3h6h3c6c8f6g7b1g1g8a3
+#75+	https://savvyopen.com/othello?play=d3c5b6d2c6e3d1c4b5b7c7a5a7c1f4e1b4g3f2g1f5d6d7a4b3e8a6c8a3a8g4e6g2f3e2h1d8e7f6g5h5b2f8h4h2h6a2c3
+#76-	https://savvyopen.com/othello?play=d3e3f2c2f5e2e1d6c3g5c6d2g6g7f6b3h5b7b4g2a8c5h8a5b2g8g3c4b1f4d7d1f8f1c1f3h7a1a3c7a2h6g4e6b6a6a7h2
+#77-	https://savvyopen.com/othello?play=d3e3f2c5e6f7b5c4e7c6b4a5c7d7g7g8a4f3f4a3f5e8a6g6b7c2f6g4c3a8g5f1b1h5g1d6c8b3g3h1h6c1h7g2d8a1f8e2
+#78-	https://savvyopen.com/othello?play=c4c3d3e3e2b4b3b2f4c5f3d2d6f1c2g2c1f6e1f5g4h4h1e7a5a3h5g3c6e6f7h3d7c8e8g6g5g7h6d1g8h7f2h8h2b5a2c7
+#79-	https://savvyopen.com/othello?play=f5f4c3e6f3b2c4e3f2c5a1g4b4f1b6e2d6a4g3a7d2h4a5e7f8c6b5d3c7c1h3c8b3a3h5b7d7f6g2h2g1f7e1h6g7a6e8d1
+#80	https://savvyopen.com/othello?play=f5d6c4d3c7b4c2d7e7f3c5f6e3f4a3b8g2b5a6b3b2d8g6f2f7a2g3a4g4h1g1a5a1g5c6g7h6b7c3h5g8h8b6h7h2b1d1c1
+#81+	https://savvyopen.com/othello?play=c4e3f4g5f2c3e6d6c5b4c6e2d3g1c2b1f5b6c1b3a3c7f3f6e1d1a1a2f7d7c8a4g7b7a5g8h5g4b5d2a7g6h7b2h6h4g2h8
+#82-	https://savvyopen.com/othello?play=e6f4c3e7f6c4g3c2d6g4b3d7c6b7e8f7c1g6h5c7e3f5c5g2h2f8b5h6a8d8g1a7g8b6f3h4a6h3g5g7b8a2b4d1h8f2b2f1
+#83	https://savvyopen.com/othello?play=f5d6c3f3f4d3c5g6e7f6c4g3h7g5h5b5f7h6f2h8d2d8b4f8a6a3h4c2b6h2h3e2b2a1a5g2g7c6e8g8d1g4f1h1e3a7b3e6
+#84	https://savvyopen.com/othello?play=d3c5c6c3f5f6e6c7b7d2g6h7c8g7d1c2e3d7e8e2g4f4b5a8h8h4a7e7d6g8h3g5f2b4f3c4g3e1g2g1f8b6b2a1h2d8c1f7
+#85	https://savvyopen.com/othello?play=c4c5f6f5f4g5h4b3b5e6e7a5c6h5a2g7a6e8g6g3d7h3g8h8b6a4b4c2c8f8a3d6f3f2c3h7b7c7c1d3h2a8f1h1d2b1d1e3
+#86	https://savvyopen.com/othello?play=c4c5c6b5a4a5e6a3a6f5b6e7d6a7f4e3d2e2f8c7b4f3g4c1g5e8b8f6f2h6h5b3f7h4g7c8c3g2a2b2h3a1d1h8d8h2h1d3
+#87	https://savvyopen.com/othello?play=e6d6c5b4c6e7b5e3f3c4f2g2f8a5a4b7h2c3f4f6f5a3d2c2d3g1b2a1c7h1b3d7g3c1e1e8f7b6d8g5g4g8a6c8a8h4h5e2
+#88	https://savvyopen.com/othello?play=e6f4e3d6c5f3g4b5d7e2g2e7f2d3e8f8c6h4h5f1a4b7h3f6g3a5c3h1g1c2a8f5g5g6c4h2g7f7c7c8b6d8c1a3d1h6e1b3
+#89	https://savvyopen.com/othello?play=f5f4e3d2e2d6c2e1c5g6c3b4g3b2g5h2d7c4a3b5f3b3h7e7a4h6a2f2a6h8d3a5d1a1b1g7g4f6f7h3g1f8g2a7h4c1h1d8
+#90	https://savvyopen.com/othello?play=f5d6c7f3c5e6f6c6c4b4g2g7f4h1b6f7g6g5h6c8f8a5b5g3a6d7f2e1b8e3d3h5e2g8g4h3h8b7b3d1a4e7h2c2e8h7c3b2
+#91-	https://savvyopen.com/othello?play=f5d6c5b6c7f4b4c6e3f2a5a3g4e7c3a6a7b5d7b3c4b7d2c2c8g3c1e6f7f8h2h4g1e1b2g5f6a2e8g7f3d8h5h3g2e2d1f1
+#92+	https://savvyopen.com/othello?play=e6f6g6c5c3d3c2d2c4b5e2e3f4f2a5e1g1b3f1d1c1f7e8f5g5a6b4h5b2a2b6a1a3f8h6g3d6e7h2g4d8g2b1h7f3c7a7d7
+#93+	https://savvyopen.com/othello?play=d3c5f6d2c6f4f3f5c3f7d6d7b5g2g7h8d1b2g5e1h1h4e6g4f1b6b3e3b1g3e8a5c4b7h3c2g6a2h5g1f2g8f8e7a8d8h2b8
+#94-	https://savvyopen.com/othello?play=f5f6f7c5e6g7g6f3d3e3d6c7b5c4b3d2d7b6h8a5d1h7h6f8g5b4b7h4f4c6e7c2b1a8g2b2a6h1a3g4c8c1e2d8b8a1h3e1
+#95	https://savvyopen.com/othello?play=f5f4g3g4f3e6c4f2g5h6h5d6e2h4f7d2f1g6d1d7f6e3d8e7f8c5h3e1b4c8g1c6g7b5a5c3c2d3c7a6a4g8h7b2h2b7a7c1
+#96	https://savvyopen.com/othello?play=d3c3f5d2c4c5b6e6c6d6e3g4c7d7b4a5a4a3f6f2c2b7c8f4b8a7h3e7e2e1f1f7g2b5b3d1g3g1g8g5d8g7f3e8h5a8h1h4
+#97	https://savvyopen.com/othello?play=c4c5d6c3b4b5a6f3c2d3c6b1f6a5g2e7c1e3d8b2a3d7a4a1c7e6b6g6h6d1f4e8f8g7f7g5d2e2h8g3e1b8h3g4f5g8f1g1
+#98+	https://savvyopen.com/othello?play=c4c3f5c5d3e6d6e3f4f6c2e7e2e1d2b2b6g3a1a2g4g6g7g8h2f3h8b3f7b4d8f8h6a7g5h7d1g2h3h4f1c6b7f2a4a3g1a5
+#99+	https://savvyopen.com/othello?play=d3e3f4g3f3c4f5e2c3e6c5d6f2g2f7d2h3h2f6f8e1d7g4c2d1g5c6c1e8b3b5a5a2a3g6b7h1h6e7d8c7f1a7g1g7b4a4b6
+#100-	https://savvyopen.com/othello?play=c4e3f3c5e2f2g2g3b6b3e6e1h3c6b7a7b5c7f1f5b8d7b4a3c8d3f7h4e8d2c2d6c3e7d1h1f6f4a8a4h5c1a5f8g7g6g4a6
+`;
+
+
+
+// Organize favourite puzzle
+ 
+favourite_puzzle = favourite_puzzle.split('\n');
+
+for (var n = 0; n < favourite_puzzle.length; n++) {
+
+	if (typeof favourite_puzzle[n][1] === 'string') {
+
+		favourite_puzzle[n] = favourite_puzzle[n].split('\t');
+	}
+}
+
+for (var n = 0; n < favourite_puzzle.length; n++) {
+
+	if (typeof favourite_puzzle[n][1] === 'string') {
+	
+		favourite_puzzle[n][1] = favourite_puzzle[n][1].replace('https://savvyopen.com/othello?play=', '');
+	}
+}
