@@ -113,7 +113,35 @@ Game.prototype.start = function(colour, mode) {
 	}
 }
 
-Game.prototype.new_puzzle = function() {
+Game.prototype.new_puzzle = function(type) {
+
+	if (type === 'favourites') {
+	
+		var random_select = 1 + parseInt(Math.random() * (favourite_puzzle.length - 2));	// the first and last entry of favourite puzzle is always empty
+		game.input(favourite_puzzle[random_select][1]);
+		
+		if (favourite_puzzle[random_select][0].includes('+'))
+			var rating = 'Challenging (Hard)';
+		else if (favourite_puzzle[random_select][0].includes('-'))
+			var rating = 'Unusual (Medium)';
+		else
+			var rating = 'Typical (Easy)';
+
+
+		
+		modal_window_show(`
+		
+			<center style='padding: 0px 30px 30px 30px;'>
+				<b>Favourite Puzzle #${random_select + 1}</b>
+				<br><br>
+				Rating: ${rating}
+			</center>
+		`);
+		
+		return;
+	}
+
+
 
 	modal_window_show(`<center style='padding: 30px;'><b>Creating Endgame Puzzle</b><br><br>This can take 1 to 10+ seconds.</center>`, {close_button: false, must_respond: true});
 
@@ -154,15 +182,15 @@ Game.prototype.new_puzzle = function() {
 
 var new_puzzle_modal = new modal_box$({z_index: 1});
 
-Game.prototype.new_puzzle_confirmation = function() {
+Game.prototype.new_puzzle_confirmation = function(type) {
 
 	new_puzzle_modal.show(`
 
-		<center style='font-size: 16px; padding: 20px;'>
-		Current game will be cleared!
+		<center style='padding: 20px;'>
+		Current game will be cleared?
 		<br><br>
-		<button onclick='game.new_puzzle(); new_puzzle_modal.close();'>Proceed</button>
-		<button onclick='new_puzzle_modal.close();'>Cancel</button>
+		<button onclick='game.new_puzzle("${type}"); new_puzzle_modal.close();'>Yes</button>
+		<button onclick='new_puzzle_modal.close();'>No</button>
 		</center>
 		
 	`, {width: '270px', close_button: false, must_respond: true});
@@ -173,14 +201,14 @@ Game.prototype.menu = function() {
 	modal_window_show(`
 	
 		<center style='padding: 0px 15px 30px 15px;'>
+		<b>Puzzle Menu</b>
+		<br><br>
 		Mode:
-		<input id='play_mode' type='radio' name='game_mode' onclick='game.set_game_mode("play"); modal_window_close();' checked>Play
-		<input id='review_mode' type='radio' name='game_mode' style='margin-left: 20px;' onclick='game.set_game_mode("review"); modal_window_close();'>Study
+		<input id='play_mode' type='radio' name='game_mode' onclick='game.set_game_mode("play");' checked>Play
+		<input id='review_mode' type='radio' name='game_mode' style='margin-left: 20px;' onclick='game.set_game_mode("review");'>Study
 		<br><br><br>
-		<button onclick='game.input(game.output(48)); modal_window_close();'>Try Again</button>
-		<br><br><br>
-
-		<button style='margin: 8px 8px 12px 12px;' onclick='game.new_puzzle_confirmation();'>New Puzzle</button>
+		<button style='margin: 8px 8px 12px 12px;' onclick='game.new_puzzle_confirmation();'>Random</button>
+		<button onclick='game.new_puzzle_confirmation("favourites");'>Favourites</button>
 		<button style='font-weight: bold; border-radius: 10px;' onclick='modal_window_show(game_instructions, {close_run: function() {game.menu();}});'>?</button>
 		</center>
 
@@ -226,6 +254,8 @@ var game_instructions = `
 	<center>
 	<div style='color: #555555; padding: 8px 15px 30px 15px;'>
 	Each puzzle starts after 48 moves have been made.
+	<br><br>
+	There are currently ${favourite_puzzle.length - 2} favourite puzzles and unlimited random puzzles.
 	<br><br>
 	Always begins with one winning move and may also have draw move(s).
 	<br><br>
@@ -313,5 +343,4 @@ Game.prototype.output = function(up_to_nth_move) {	// output the current play li
 	}
 	
 	return play_line;
-
 }
