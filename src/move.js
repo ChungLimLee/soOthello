@@ -194,7 +194,6 @@ Game.prototype.next_turn = function() {
 	else if (this.move_list(this.turn).length === 0) {
 
 		result = 'no more turn';
-		this.set_game_mode('review');
 		
 		
 		
@@ -223,7 +222,7 @@ Game.prototype.next_turn = function() {
 
 			<center>
 			<div style='background-color: #e0e0e0; padding: 20px 15px 20px 15px;'>
-			<button onclick='game.new_puzzle_confirmation();' style='color: #282828'>New<br>Puzzle</button>
+			<button onclick='game.menu();' style='color: #282828'>Next<br>Puzzle</button>
 			<button onclick='game.share_menu();' style='color: #282828'>Share this puzzle<br>with friends</button>
 			</div>
 			</center>
@@ -234,6 +233,7 @@ Game.prototype.next_turn = function() {
 	}
 	
 	else {
+	
 		result = this.turn;
 		
 		modal_window_show(`
